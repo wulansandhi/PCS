@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Kreait\Firebase\Contract\Database;
+use Illuminate\Support\Facades\Validator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DataController extends Controller
 {
@@ -81,7 +82,7 @@ class DataController extends Controller
 
         $tablename = $this->tablename;
         $itemKey = $id;
-        $columnToRetrieve = 'nama';
+        $columnToRetrieve = 'id';
 
 
         $data = $this->database->getReference($tablename . '/' . $itemKey . '/' . $columnToRetrieve)->getValue();
