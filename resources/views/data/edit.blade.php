@@ -27,7 +27,8 @@
                             <label for="nomorSurat" class="form-label">Nomor Surat</label>
                             <input class="form-control @error('nomorSurat')
         is-invalid @enderror" type="text"
-                                name="nomorSurat" id="nomorSurat" value="{{ $editdata['nomorSurat'] }}" placeholder="Masukkan Nomor Surat">
+                                name="nomorSurat" id="nomorSurat" value="{{ $editdata['nomorSurat'] }}"
+                                placeholder="Masukkan Nomor Surat">
                             @error('nomorSurat')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
@@ -36,6 +37,12 @@
                             <label for="divisi" class="form-label">Divisi</label>
                             <select name="divisi" id="divisi" class="form-select" aria-label="Default select example">
                                 <option value="">Pilih Divisi</option>
+                                @foreach ($divisi as $key => $divisiName)
+                                    <option value="{{ $divisiName }}"
+                                        {{ $editdata['divisi'] == $divisiName ? 'selected' : '' }}>
+                                        {{ $divisiName }}
+                                    </option>
+                                @endforeach
                             </select>
                             @error('kategori')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
@@ -45,7 +52,12 @@
                             <label for="kategori" class="form-label">kategori</label>
                             <select name="kategori" id="kategori" class="form-select" aria-label="Default select example">
                                 <option value="">Pilih Kategori</option>
-
+                                @foreach ($kategori as $key => $kategoriName)
+                                    <option value="{{ $kategoriName }}"
+                                        {{ $editdata['kategori'] == $kategoriName ? 'selected' : '' }}>
+                                        {{ $kategoriName }}
+                                    </option>
+                                @endforeach
                             </select>
                             @error('kategori')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
@@ -53,8 +65,7 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="keterangan" class="form-label">Keterangan</label>
-                            <textarea id="keterangan" name="keterangan" class="form-control" rows="5"
-                            placeholder="Masukkan Keterangan">{{ $editdata['keterangan'] }}</textarea>
+                            <textarea id="keterangan" name="keterangan" class="form-control" rows="5" placeholder="Masukkan Keterangan">{{ $editdata['keterangan'] }}</textarea>
                             @error('keterangan')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
