@@ -24,7 +24,7 @@
                         <th>Nama</th>
                         <th>Kategori</th>
                         <th>Keterangan</th>
-                        <th>divisi</th>
+                        <th>Divisi</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -36,7 +36,7 @@
                                 <td>{{ $item['nama'] }}</td>
                                 <td>{{ $item['kategori'] }}</td>
                                 <td>{{ $item['keterangan'] }}</td>
-                                <td>divisi</td>
+                                <td>{{ $item['divisi'] }}</td>
                                 <td class="col-actions">@include('data.actions')</td>
                             </tr>
                         @empty
