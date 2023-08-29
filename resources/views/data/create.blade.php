@@ -5,9 +5,9 @@
         <form action="{{ route('data.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row justify-content-center">
-                <div class="p-5 bg-light rounded-3 border col-xl-6">
+                <div class="p-5 bg-light rounded-3 border col-xl-12">
                     <div class="mb-3 text-center">
-                        <i class="bi bi-archive-fill fs-1"></i>
+                        <i class="bi bi-file-text-fill fs-1"></i>
                         <h4>Masukkan Data</h4>
                     </div>
                     <hr>
@@ -18,6 +18,15 @@
         is-invalid @enderror" type="text"
                                 name="nama" id="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama Data">
                             @error('nama')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="nomorSurat" class="form-label">Nomor Surat</label>
+                            <input class="form-control @error('nomorSurat')
+        is-invalid @enderror" type="text"
+                                name="nomorSurat" id="nomorSurat" value="{{ old('nomorSurat') }}" placeholder="Masukkan Nomor Surat">
+                            @error('nomorSurat')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
@@ -50,10 +59,8 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="keterangan" class="form-label">Keterangan</label>
-                            <input class="form-control @error('keterangan') is-invalid
-        @enderror" type="text"
-                                name="keterangan" id="keterangan" value="{{ old('keterangan') }}"
-                                placeholder="Masukkan Keterangan">
+                            <textarea id="keterangan" name="keterangan" class="form-control" rows="5"
+                            value="{{ old('keterangan') }}" placeholder="Masukkan Keterangan"></textarea>
                             @error('keterangan')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror

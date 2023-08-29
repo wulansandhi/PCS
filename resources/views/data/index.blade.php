@@ -22,6 +22,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nama</th>
+                        <th>Nomor Surat</th>
                         <th>Kategori</th>
                         <th>Keterangan</th>
                         <th>Divisi</th>
@@ -34,6 +35,7 @@
                             <tr>
                                 <td>{{ $item['id'] }}</td>
                                 <td>{{ $item['nama'] }}</td>
+                                <td>{{ $item['nomorSurat'] }}</td>
                                 <td>{{ $item['kategori'] }}</td>
                                 <td>{{ $item['keterangan'] }}</td>
                                 <td>{{ $item['divisi'] }}</td>
