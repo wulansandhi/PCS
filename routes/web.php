@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -15,3 +16,4 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::resource('data', DataController::class);

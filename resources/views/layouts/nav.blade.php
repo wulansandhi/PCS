@@ -8,7 +8,7 @@
                     <a class="nav-link" aria-current="page" href="{{ url('/') }}">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Arsip</a>
+                    <a class="nav-link" href="{{ route('data.index') }}">Arsip</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
