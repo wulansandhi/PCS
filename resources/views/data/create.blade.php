@@ -22,6 +22,33 @@
                             @enderror
                         </div>
                         <div class="col-md-12 mb-3">
+                            <label for="divisi" class="form-label">Divisi</label>
+                            <select name="divisi" id="divisi" class="form-select" aria-label="Default select example">
+                                <option value="">Pilih Divisi</option>
+                                <option value="Umum & IT">Umum & IT</option>
+                                <option value="SDM">SDM</option>
+                                <option value="Pengadaan">Pengadaan</option>
+                                <option value="Perdagangan">Perdagangan</option>
+                                <option value="Audit Internal">Audit Internal</option>
+                                <option value="On Call">On Call</option>
+                                <option value="All In">All In</option>
+                            </select>
+                            @error('divisi')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="kategori" class="form-label">Kategori</label>
+                            <select name="kategori" id="kategori" class="form-select" aria-label="Default select example">
+                                <option value="">Pilih Kategori</option>
+                                <option value="Box">Box</option>
+                                <option value="Map">Map</option>
+                            </select>
+                            @error('kategori')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
+                        </div>
+                        <div class="col-md-12 mb-3">
                             <label for="keterangan" class="form-label">Keterangan</label>
                             <input class="form-control @error('keterangan') is-invalid
         @enderror" type="text"
@@ -30,14 +57,6 @@
                             @error('keterangan')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="kategori" class="form-label">Kategori</label>
-                            <select name="kategori" id="kategori" class="form-select" aria-label="Default select example">
-                                <option value="">Pilih Kategori</option>
-                                <option value="1">Box</option>
-                                <option value="2">Map</option>
-                            </select>
                         </div>
                         <hr>
                         <div class="row">

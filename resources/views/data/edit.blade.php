@@ -14,21 +14,29 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <label for="id" class="form-label">ID</label>
-                            <input class="form-control @error('id')
+                            <label for="nama" class="form-label">Nama Data</label>
+                            <input class="form-control @error('nama')
         is-invalid @enderror" type="text"
-                                name="id" id="id" value="{{ $editdata['id'] }}" placeholder="Masukkan ID">
-                            @error('id')
+                                name="nama" id="nama" value="{{ $editdata['nama'] }}" placeholder="Masukkan Nama Data">
+                            @error('nama')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label for="nama" class="form-label">Nama Data</label>
-                            <input class="form-control @error('nama')
-        is-invalid @enderror" type="text"
-                                name="nama" id="nama" value="{{ $editdata['nama'] }}"
-                                placeholder="Masukkan Nama Data">
-                            @error('nama')
+                            <label for="divisi" class="form-label">Divisi</label>
+                            <select name="divisi" id="divisi" class="form-select" aria-label="Default select example">
+                                <option value="">Pilih Divisi</option>
+                            </select>
+                            @error('kategori')
+                                <div class="text-danger"><small>{{ $message }}</small></div>
+                            @enderror
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="kategori" class="form-label">kategori</label>
+                            <select name="kategori" id="kategori" class="form-select" aria-label="Default select example">
+
+                            </select>
+                            @error('kategori')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
