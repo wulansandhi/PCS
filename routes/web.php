@@ -17,3 +17,5 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('data', DataController::class);
+Route::get('edit/{id}', [DataController::class, 'edit']);
+Route::put('update/{id}', [DataController::class, 'update']);
