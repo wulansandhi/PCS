@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-sm mt-5">
-        <form action="{{ url('data.update' . $key) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ url('update/' . $key) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row justify-content-center">

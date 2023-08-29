@@ -61,6 +61,7 @@ class DataController extends Controller
             'nama' => $request->nama,
             'keterangan' => $request->keterangan,
             'kategori' => $request->kategori,
+            // 'divisi' => $request->divisi
         ];
         $postRef = $this->database->getReference($this->tablename)->push($postData);
         if ($postRef) {
@@ -108,23 +109,25 @@ class DataController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $messages = [
-            'required' => ':Attribute harus diisi.',
-        ];
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'keterangan' => 'required',
-            'kategori' => 'required|in:1,2',
-        ], $messages);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        // $messages = [
+        //     'required' => ':Attribute harus diisi.',
+        // ];
+        // $validator = Validator::make($request->all(), [
+        //     'nama' => 'required',
+        //     'keterangan' => 'required',
+        //     'kategori' => 'required|in:1,2',
+        // ], $messages);
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
 
         $key = $id;
         $updateData = [
             'id' => $request->id,
             'nama' => $request->nama,
             'keterangan' => $request->keterangan,
+            // 'kategori' => $request->kategori,
+            // 'divisi' => $request->divisi
         ];
         $res_updated = $this->database->getReference($this->tablename . '/' . $key)->update($updateData);
         if ($res_updated) {
