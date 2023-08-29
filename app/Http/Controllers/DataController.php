@@ -31,8 +31,11 @@ class DataController extends Controller
      */
     public function create()
     {
+
+        $kategori = $this->database->getReference('Kategori')->getValue();
+        $divisi = $this->database->getReference('Divisi')->getValue();
         $pageTitle = 'Create';
-        return view('data.create', ['pageTitle' => $pageTitle]);
+        return view('data.create', ['pageTitle' => $pageTitle, 'divisi' => $divisi, 'kategori' => $kategori]);
     }
 
     /**

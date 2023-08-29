@@ -17,7 +17,8 @@
                             <label for="nama" class="form-label">Nama Data</label>
                             <input class="form-control @error('nama')
         is-invalid @enderror" type="text"
-                                name="nama" id="nama" value="{{ $editdata['nama'] }}" placeholder="Masukkan Nama Data">
+                                name="nama" id="nama" value="{{ $editdata['nama'] }}"
+                                placeholder="Masukkan Nama Data">
                             @error('nama')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
@@ -34,6 +35,7 @@
                         <div class="col-md-12 mb-3">
                             <label for="kategori" class="form-label">kategori</label>
                             <select name="kategori" id="kategori" class="form-select" aria-label="Default select example">
+                                <option value="">Pilih Kategori</option>
 
                             </select>
                             @error('kategori')
