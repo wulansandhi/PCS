@@ -31,8 +31,11 @@ class DataController extends Controller
      */
     public function create()
     {
+
+        $kategori = $this->database->getReference('Kategori')->getValue();
+        $divisi = $this->database->getReference('Divisi')->getValue();
         $pageTitle = 'Create';
-        return view('data.create', ['pageTitle' => $pageTitle]);
+        return view('data.create', ['pageTitle' => $pageTitle, 'divisi' => $divisi, 'kategori' => $kategori]);
     }
 
     /**
@@ -98,11 +101,14 @@ class DataController extends Controller
      */
     public function edit(string $id)
     {
+        $kategori = $this->database->getReference('Kategori')->getValue();
+        $divisi = $this->database->getReference('Divisi')->getValue();
+
         $pageTitle = 'edit';
         $key = $id;
         $editdata = $this->database->getReference($this->tablename)->getChild($key)->getValue();
         if ($editdata) {
-            return view('data.edit', ['pageTitle' => $pageTitle, 'editdata' => $editdata, 'key' => $key]);
+            return view('data.edit', ['pageTitle' => $pageTitle, 'editdata' => $editdata, 'key' => $key, 'divisi' => $divisi, 'kategori' => $kategori]);
         } else {
             return view('data');
         }

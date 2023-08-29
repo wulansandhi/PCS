@@ -34,15 +34,11 @@
                             <label for="divisi" class="form-label">Divisi</label>
                             <select name="divisi" id="divisi" class="form-select" aria-label="Default select example">
                                 <option value="">Pilih Divisi</option>
-                                <option value="Umum & IT">Umum & IT</option>
-                                <option value="SDM">SDM</option>
-                                <option value="Pengadaan">Pengadaan</option>
-                                <option value="Perdagangan">Perdagangan</option>
-                                <option value="Audit Internal">Audit Internal</option>
-                                <option value="On Call">On Call</option>
-                                <option value="All In">All In</option>
+                                @foreach ($divisi as $key => $divisiName)
+                                    <option value="{{ $key }}">{{ $divisiName }}</option>
+                                @endforeach
                             </select>
-                            @error('divisi')
+                            @error('Divisi')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
@@ -50,8 +46,9 @@
                             <label for="kategori" class="form-label">Kategori</label>
                             <select name="kategori" id="kategori" class="form-select" aria-label="Default select example">
                                 <option value="">Pilih Kategori</option>
-                                <option value="Box">Box</option>
-                                <option value="Map">Map</option>
+                                @foreach ($kategori as $key => $kategoriName)
+                                    <option value="{{ $key }}">{{ $kategoriName }}</option>
+                                @endforeach
                             </select>
                             @error('kategori')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
