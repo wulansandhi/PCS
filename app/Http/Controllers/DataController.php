@@ -48,6 +48,7 @@ class DataController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'nomorSurat' => 'required',
             'keterangan' => 'required',
             'divisi' => 'required',
             'kategori' => 'required',
@@ -64,6 +65,7 @@ class DataController extends Controller
         $postData = [
             'id' => $temp . $request->id,
             'nama' => $request->nama,
+            'nomorSurat' => $request->nomorSurat,
             'keterangan' => $request->keterangan,
             'kategori' => $request->kategori,
             'divisi' => $request->divisi
@@ -119,6 +121,7 @@ class DataController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'nomorSurat' => 'required',
             'keterangan' => 'required',
             'divisi' => 'required',
             'kategori' => 'required',
@@ -131,6 +134,7 @@ class DataController extends Controller
         $updateData = [
             'id' => $request->id,
             'nama' => $request->nama,
+            'nomorSurat' => $request->nomorSurat,
             'keterangan' => $request->keterangan,
             'kategori' => $request->kategori,
             'divisi' => $request->divisi
