@@ -25,7 +25,8 @@
                             <label for="nomorSurat" class="form-label">Nomor Surat</label>
                             <input class="form-control @error('nomorSurat')
         is-invalid @enderror" type="text"
-                                name="nomorSurat" id="nomorSurat" value="{{ old('nomorSurat') }}" placeholder="Masukkan Nomor Surat">
+                                name="nomorSurat" id="nomorSurat" value="{{ old('nomorSurat') }}"
+                                placeholder="Masukkan Nomor Surat">
                             @error('nomorSurat')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
@@ -35,7 +36,7 @@
                             <select name="divisi" id="divisi" class="form-select" aria-label="Default select example">
                                 <option value="">Pilih Divisi</option>
                                 @foreach ($divisi as $key => $divisiName)
-                                    <option value="{{ $key }}">{{ $divisiName }}</option>
+                                    <option value="{{ $divisiName }}">{{ $divisiName }}</option>
                                 @endforeach
                             </select>
                             @error('Divisi')
@@ -47,7 +48,7 @@
                             <select name="kategori" id="kategori" class="form-select" aria-label="Default select example">
                                 <option value="">Pilih Kategori</option>
                                 @foreach ($kategori as $key => $kategoriName)
-                                    <option value="{{ $key }}">{{ $kategoriName }}</option>
+                                    <option value="{{ $kategoriName }}">{{ $kategoriName }}</option>
                                 @endforeach
                             </select>
                             @error('kategori')
@@ -56,8 +57,8 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <label for="keterangan" class="form-label">Keterangan</label>
-                            <textarea id="keterangan" name="keterangan" class="form-control" rows="5"
-                            value="{{ old('keterangan') }}" placeholder="Masukkan Keterangan"></textarea>
+                            <textarea id="keterangan" name="keterangan" class="form-control" rows="5" value="{{ old('keterangan') }}"
+                                placeholder="Masukkan Keterangan"></textarea>
                             @error('keterangan')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror

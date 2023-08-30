@@ -17,10 +17,3 @@ body {
 textarea {
     resize: none;
 }
-
-.qr-code-outline {
-    border: 2px solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
