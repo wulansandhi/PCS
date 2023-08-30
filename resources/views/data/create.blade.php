@@ -39,7 +39,7 @@
                                     <option value="{{ $divisiName }}">{{ $divisiName }}</option>
                                 @endforeach
                             </select>
-                            @error('Divisi')
+                            @error('divisi')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>

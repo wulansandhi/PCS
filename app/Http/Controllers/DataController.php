@@ -7,6 +7,7 @@ use Kreait\Firebase\Contract\Database;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DataController extends Controller
 {
@@ -87,7 +88,6 @@ class DataController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'nomorSurat' => 'required',
-            'keterangan' => 'required',
             'divisi' => 'required',
             'kategori' => 'required',
         ], $messages);
@@ -128,7 +128,8 @@ class DataController extends Controller
         $postRef = $dataRef->push($postData);
 
         if ($postRef->getKey()) {
-            return redirect('data')->with('status', 'Data Berhasil Ditambahkan');
+            Alert::success('Berhasil Ditambahkan', 'Data Berhasil Ditambahkan');
+            return redirect('data');
         } else {
             return redirect('data.index')->with('status', 'Data Tidak Berhasil Ditambahkan');
         }
@@ -182,7 +183,6 @@ class DataController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'nomorSurat' => 'required',
-            'keterangan' => 'required',
             'divisi' => 'required',
             'kategori' => 'required',
         ], $messages);
@@ -200,10 +200,12 @@ class DataController extends Controller
             'divisi' => $request->divisi
         ];
         $res_updated = $this->database->getReference($this->tablename . '/' . $key)->update($updateData);
-        if ($res_updated) {
-            return redirect('data')->with('status', 'Data Berhasil Diperbarui');
+
+        if ($res_updated->getKey()) {
+            Alert::success('Berhasil Diubah', 'Data Berhasil Diubah');
+            return redirect('data');
         } else {
-            return redirect('data')->with('status', 'Data Tidak Berhasil Diperbarui');
+            return redirect('data.index')->with('status', 'Data Tidak Berhasil Diperbarui');
         }
     }
 
@@ -215,7 +217,11 @@ class DataController extends Controller
         $key = $id;
         $deleted = $this->database->getReference($this->tablename . '/' . $key)->remove();
         if ($deleted) {
+            Alert::success('Berhasil Dihapus', 'Data Berhasil Dihapus');
             return redirect('data');
+        }
+        else {
+            return redirect('data.index')->with('status', 'Data Tidak Berhasil Dihapus');
         }
     }
 
