@@ -161,4 +161,6 @@ class DataController extends Controller
             return redirect('data');
         }
     }
+
+
 }
