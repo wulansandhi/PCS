@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Database;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -17,6 +18,42 @@ class DataController extends Controller
     {
         $this->database = $database;
         $this->tablename = 'Data';
+    }
+
+    private function findLatestId($kategoriCode, $divisiCode)
+    {
+        // Reference to the location in your Realtime Database where data is stored
+        // Replace 'Data' with the actual path to your data
+        $dataRef = $this->database->getReference('Data');
+
+        // Query to find the latest ID based on 'kategori' and 'divisi'
+        $latestId = 0; // Initialize with 0
+
+        // Retrieve the data from the Realtime Database
+        $data = $dataRef->getSnapshot();
+
+        foreach ($data as $key => $entry) {
+            // Check if the entry matches the selected 'kategori' and 'divisi'
+            if (
+                isset($entry['kategori']) && isset($entry['divisi']) &&
+                $entry['kategori'] == $kategoriCode && $entry['divisi'] == $divisiCode
+            ) {
+                // Extract and compare the numeric part of the ID from the key
+                $idParts = explode('-', $key);
+                $id = end($idParts); // Get the last part of the key (the ID)
+
+                // Convert to integer and check if it's greater than the current latest ID
+                $id = (int) $id;
+                if ($id > $latestId) {
+                    $latestId = $id;
+                }
+            }
+        }
+
+        // Increment the latest ID by 1 to get the next ID
+        $nextId = $latestId + 1;
+
+        return $nextId;
     }
 
     public function index()
@@ -46,6 +83,7 @@ class DataController extends Controller
         $messages = [
             'required' => ':Attribute harus diisi.',
         ];
+
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'nomorSurat' => 'required',
@@ -53,25 +91,43 @@ class DataController extends Controller
             'divisi' => 'required',
             'kategori' => 'required',
         ], $messages);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        if ($request->kategori == 'box') {
-            $temp = 'box';
-        } else {
-            $temp = 'esa';
-        }
+        $kategori = $request->kategori;
+        $divisi = $request->divisi;
+
+        // Determine a code for "Kategori" and "Divisi" (e.g., BOX for Box, PDG for Perdagangan)
+        $kategoriCode = strtoupper(substr($kategori, 0, 3)); // Take the first 3 letters of "Kategori"
+        $divisiCode = strtoupper(substr($divisi, 0, 3)); // Take the first 3 letters of "Divisi"
+
+        // Find the latest ID for the selected "Kategori" and "Divisi" combination
+        $latestId = $this->findLatestId($kategoriCode, $divisiCode);
+
+        // Increment the latest ID by 1
+        $nextId = $latestId + 1;
+
+        // Format the new ID as KategoriCode-DivisiCode-Number
+        $formattedId = $kategoriCode . '-' . $divisiCode . '-' . $nextId;
+
         $postData = [
-            'id' => $temp . $request->id,
+            'id' => $formattedId,
             'nama' => $request->nama,
             'nomorSurat' => $request->nomorSurat,
             'keterangan' => $request->keterangan,
             'kategori' => $request->kategori,
             'divisi' => $request->divisi
         ];
-        $postRef = $this->database->getReference($this->tablename)->push($postData);
-        if ($postRef) {
+
+        // Reference to the location in your Realtime Database where data is stored
+        // Replace 'Data' with the actual path to your data
+        $dataRef = $this->database->getReference('Data');
+
+        $postRef = $dataRef->push($postData);
+
+        if ($postRef->getKey()) {
             return redirect('data')->with('status', 'Data Berhasil Ditambahkan');
         } else {
             return redirect('data.index')->with('status', 'Data Tidak Berhasil Ditambahkan');
@@ -162,4 +218,6 @@ class DataController extends Controller
             return redirect('data');
         }
     }
+
+
 }
