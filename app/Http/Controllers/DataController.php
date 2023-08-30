@@ -89,11 +89,12 @@ class DataController extends Controller
         $itemKey = $id;
         $columnToRetrieve = 'id';
 
+        $editdata = $this->database->getReference($this->tablename)->getChild($id)->getValue();
 
         $data = $this->database->getReference($tablename . '/' . $itemKey . '/' . $columnToRetrieve)->getValue();
 
-        $code = QrCode::format('svg')->size(200)->errorCorrection('H')->generate($data);
-        return view('data.show', ['pageTitle' => $pageTitle, 'code' => $code, 'key' => $id]);
+        $code = QrCode::format('svg')->size(290)->errorCorrection('H')->generate($data);
+        return view('data.show', ['pageTitle' => $pageTitle, 'code' => $code, 'key' => $id, 'editdata' => $editdata]);
     }
 
     /**
