@@ -23,3 +23,4 @@ Route::get('detail/{id}', [DataController::class, 'show']);
 Route::put('update/{id}', [DataController::class, 'update']);
 Route::get('delete/{id}', [DataController::class, 'destroy']);
 Route::get('download/{id}', [PrintController::class, 'printOut']);
+Route::get('getData', [DataController::class, 'getData'])->name('data.getData');

@@ -36,8 +36,10 @@ class DataController extends Controller
         foreach ($data as $key => $entry) {
             // Check if the entry matches the selected 'kategori' and 'divisi'
             if (
-                isset($entry['kategori']) && isset($entry['divisi']) &&
-                $entry['kategori'] == $kategoriCode && $entry['divisi'] == $divisiCode
+                isset($entry['kategori']) &&
+                isset($entry['divisi']) &&
+                $entry['kategori'] == $kategoriCode &&
+                $entry['divisi'] == $divisiCode
             ) {
                 // Extract and compare the numeric part of the ID from the key
                 $idParts = explode('-', $key);
@@ -69,11 +71,14 @@ class DataController extends Controller
      */
     public function create()
     {
-
         $kategori = $this->database->getReference('Kategori')->getValue();
         $divisi = $this->database->getReference('Divisi')->getValue();
         $pageTitle = 'Create';
-        return view('data.create', ['pageTitle' => $pageTitle, 'divisi' => $divisi, 'kategori' => $kategori]);
+        return view('data.create', [
+            'pageTitle' => $pageTitle,
+            'divisi' => $divisi,
+            'kategori' => $kategori,
+        ]);
     }
 
     /**
@@ -85,15 +90,22 @@ class DataController extends Controller
             'required' => ':Attribute harus diisi.',
         ];
 
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'nomorSurat' => 'required',
-            'divisi' => 'required',
-            'kategori' => 'required',
-        ], $messages);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nama' => 'required',
+                'nomorSurat' => 'required',
+                'divisi' => 'required',
+                'kategori' => 'required',
+            ],
+            $messages
+        );
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $kategori = $request->kategori;
@@ -118,7 +130,7 @@ class DataController extends Controller
             'nomorSurat' => $request->nomorSurat,
             'keterangan' => $request->keterangan,
             'kategori' => $request->kategori,
-            'divisi' => $request->divisi
+            'divisi' => $request->divisi,
         ];
 
         // Reference to the location in your Realtime Database where data is stored
@@ -131,7 +143,10 @@ class DataController extends Controller
             Alert::success('Berhasil Ditambahkan', 'Data Berhasil Ditambahkan');
             return redirect('data');
         } else {
-            return redirect('data.index')->with('status', 'Data Tidak Berhasil Ditambahkan');
+            return redirect('data.index')->with(
+                'status',
+                'Data Tidak Berhasil Ditambahkan'
+            );
         }
     }
 
@@ -146,12 +161,27 @@ class DataController extends Controller
         $itemKey = $id;
         $columnToRetrieve = 'id';
 
-        $editdata = $this->database->getReference($this->tablename)->getChild($id)->getValue();
+        $editdata = $this->database
+            ->getReference($this->tablename)
+            ->getChild($id)
+            ->getValue();
 
-        $data = $this->database->getReference($tablename . '/' . $itemKey . '/' . $columnToRetrieve)->getValue();
+        $data = $this->database
+            ->getReference(
+                $tablename . '/' . $itemKey . '/' . $columnToRetrieve
+            )
+            ->getValue();
 
-        $code = QrCode::format('svg')->size(290)->errorCorrection('H')->generate($data);
-        return view('data.show', ['pageTitle' => $pageTitle, 'code' => $code, 'key' => $id, 'editdata' => $editdata]);
+        $code = QrCode::format('svg')
+            ->size(290)
+            ->errorCorrection('H')
+            ->generate($data);
+        return view('data.show', [
+            'pageTitle' => $pageTitle,
+            'code' => $code,
+            'key' => $id,
+            'editdata' => $editdata,
+        ]);
     }
 
     /**
@@ -164,9 +194,18 @@ class DataController extends Controller
 
         $pageTitle = 'edit';
         $key = $id;
-        $editdata = $this->database->getReference($this->tablename)->getChild($key)->getValue();
+        $editdata = $this->database
+            ->getReference($this->tablename)
+            ->getChild($key)
+            ->getValue();
         if ($editdata) {
-            return view('data.edit', ['pageTitle' => $pageTitle, 'editdata' => $editdata, 'key' => $key, 'divisi' => $divisi, 'kategori' => $kategori]);
+            return view('data.edit', [
+                'pageTitle' => $pageTitle,
+                'editdata' => $editdata,
+                'key' => $key,
+                'divisi' => $divisi,
+                'kategori' => $kategori,
+            ]);
         } else {
             return view('data');
         }
@@ -180,14 +219,21 @@ class DataController extends Controller
         $messages = [
             'required' => ':Attribute harus diisi.',
         ];
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'nomorSurat' => 'required',
-            'divisi' => 'required',
-            'kategori' => 'required',
-        ], $messages);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nama' => 'required',
+                'nomorSurat' => 'required',
+                'divisi' => 'required',
+                'kategori' => 'required',
+            ],
+            $messages
+        );
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $key = $id;
@@ -197,15 +243,20 @@ class DataController extends Controller
             'nomorSurat' => $request->nomorSurat,
             'keterangan' => $request->keterangan,
             'kategori' => $request->kategori,
-            'divisi' => $request->divisi
+            'divisi' => $request->divisi,
         ];
-        $res_updated = $this->database->getReference($this->tablename . '/' . $key)->update($updateData);
+        $res_updated = $this->database
+            ->getReference($this->tablename . '/' . $key)
+            ->update($updateData);
 
         if ($res_updated->getKey()) {
             Alert::success('Berhasil Diubah', 'Data Berhasil Diubah');
             return redirect('data');
         } else {
-            return redirect('data.index')->with('status', 'Data Tidak Berhasil Diperbarui');
+            return redirect('data.index')->with(
+                'status',
+                'Data Tidak Berhasil Diperbarui'
+            );
         }
     }
 
@@ -215,15 +266,31 @@ class DataController extends Controller
     public function destroy(string $id)
     {
         $key = $id;
-        $deleted = $this->database->getReference($this->tablename . '/' . $key)->remove();
+        $deleted = $this->database
+            ->getReference($this->tablename . '/' . $key)
+            ->remove();
         if ($deleted) {
             Alert::success('Berhasil Dihapus', 'Data Berhasil Dihapus');
             return redirect('data');
-        }
-        else {
-            return redirect('data.index')->with('status', 'Data Tidak Berhasil Dihapus');
+        } else {
+            return redirect('data.index')->with(
+                'status',
+                'Data Tidak Berhasil Dihapus'
+            );
         }
     }
 
+    public function getData(Request $request)
+    {
+        $fdata = $this->database->getReference($this->tablename)->getValue();
 
+        if ($request->ajax()) {
+            return datatables()->of($fdata)
+                ->addIndexColumn()
+                ->addColumn('actions', function ($item) {
+                    return view('data.actions', compact('item'));
+                })
+                ->toJson();
+        }
+    }
 }

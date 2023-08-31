@@ -12,12 +12,12 @@
             </div>
         </div>
         <hr class="my-4">
-        <div class="table-responsive border p-4 rounded-3">
+        <div class="table-responsive border p-4 rounded-3 bg-white">
             @if (session('status'))
                 <h4 class="alert alert-warning mb-2">{{ session('status') }}</h4>
             @endif
 
-            <table class="table table-bordered table-hover table-striped" id="articleTable">
+            <table class="table table-bordered table-hover table-striped" id="ListTable">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -56,3 +56,10 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script type="module">
+        $(document).ready(function() {
+            $('#ListTable').DataTable();
+        });
+    </script>
+@endpush
